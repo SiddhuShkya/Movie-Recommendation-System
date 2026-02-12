@@ -4,3 +4,7 @@ matplotlib
 seaborn
 matplotlib-venn
 pycountry
+nltk
+scikit-learn
+langchain-huggingface
+sentence-transformers
