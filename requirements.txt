@@ -1,5 +1,7 @@
 ipykernel
+ipywidgets
 pandas
+gdown
 matplotlib
 seaborn
 matplotlib-venn
