@@ -1,6 +1,8 @@
 ipykernel
 ipywidgets
 pandas
+ensure
+python-box
 gdown
 matplotlib
 seaborn
