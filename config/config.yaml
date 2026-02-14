@@ -5,3 +5,7 @@ data_ingestion:
   drive_file_id: "1PMwyTlpKh-1IThTmTHRYxd1pjIsn5HYd"
   local_data_file: artifacts/data_ingestion/final-movie-data.zip
   unzip_dir: artifacts/data_ingestion
+
+data_transformation:
+  root_dir: artifacts/data_transformation
+  data_path: artifacts/data_ingestion

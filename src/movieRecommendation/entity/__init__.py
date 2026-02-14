@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass
@@ -7,3 +8,9 @@ class DataIngestionConfig:
     drive_file_id: str
     local_data_file: str
     unzip_dir: str
+
+
+@dataclass
+class DataTransformationConfig:
+    root_dir: Path
+    data_path: Path
