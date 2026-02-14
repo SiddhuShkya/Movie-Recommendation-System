@@ -14,3 +14,9 @@ class DataIngestionConfig:
 class DataTransformationConfig:
     root_dir: Path
     data_path: Path
+
+
+@dataclass
+class DataPreparationConfig:
+    root_dir: Path
+    data_path: Path

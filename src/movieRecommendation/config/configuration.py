@@ -1,5 +1,9 @@
 from src.movieRecommendation.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
-from src.movieRecommendation.entity import DataIngestionConfig, DataTransformationConfig
+from src.movieRecommendation.entity import (
+    DataIngestionConfig,
+    DataTransformationConfig,
+    DataPreparationConfig,
+)
 from src.movieRecommendation.utils.common import read_yaml, create_directories
 
 
@@ -27,3 +31,11 @@ class ConfigurationManager:
             root_dir=config.root_dir, data_path=config.data_path
         )
         return data_transformation_config
+
+    def get_data_preparation_config(self) -> DataPreparationConfig:
+        config = self.config.data_preparation
+        create_directories([config.root_dir])
+        data_preparation_config = DataPreparationConfig(
+            root_dir=config.root_dir, data_path=config.data_path
+        )
+        return data_preparation_config
