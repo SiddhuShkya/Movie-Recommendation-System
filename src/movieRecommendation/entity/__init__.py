@@ -20,3 +20,11 @@ class DataTransformationConfig:
 class DataPreparationConfig:
     root_dir: Path
     data_path: Path
+
+
+@dataclass
+class ModelTrainerConfig:
+    root_dir: Path
+    data_path: Path
+    model_name: str
+    model_path: Path

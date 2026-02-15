@@ -8,6 +8,9 @@ from src.movieRecommendation.pipeline.stage2_data_transformation import (
 from src.movieRecommendation.pipeline.stage3_data_cleaning import (
     DataPreparationPipeline,
 )
+from src.movieRecommendation.pipeline.stage4_model_trainer import (
+    ModelTrainerPipeline,
+)
 
 STAGE_NAME = "Data Ingestion Stage"
 
@@ -37,6 +40,18 @@ try:
     logger.info(f">>>>>> Stage {STAGE_NAME} started <<<<<<")
     data_preparation = DataPreparationPipeline()
     data_preparation.initiate_data_preparation()
+    logger.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<")
+except Exception as e:
+    logger.exception(f"Error in stage {STAGE_NAME}: {e}")
+    raise e
+
+
+STAGE_NAME = "Model Trainer Stage"
+
+try:
+    logger.info(f">>>>>> Stage {STAGE_NAME} started <<<<<<")
+    model_trainer = ModelTrainerPipeline()
+    model_trainer.initiate_model_trainer()
     logger.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<")
 except Exception as e:
     logger.exception(f"Error in stage {STAGE_NAME}: {e}")

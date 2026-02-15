@@ -3,8 +3,10 @@ from src.movieRecommendation.entity import (
     DataIngestionConfig,
     DataTransformationConfig,
     DataPreparationConfig,
+    ModelTrainerConfig,
 )
 from src.movieRecommendation.utils.common import read_yaml, create_directories
+from pathlib import Path
 
 
 class ConfigurationManager:
@@ -39,3 +41,14 @@ class ConfigurationManager:
             root_dir=config.root_dir, data_path=config.data_path
         )
         return data_preparation_config
+
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config.model_trainer
+        create_directories([config.root_dir])
+        model_trainer_config = ModelTrainerConfig(
+            root_dir=Path(config.root_dir),
+            data_path=Path(config.data_path),
+            model_name=config.model_name,
+            model_path=Path(config.model_path),
+        )
+        return model_trainer_config

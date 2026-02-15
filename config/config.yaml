@@ -13,3 +13,9 @@ data_transformation:
 data_preparation:
   root_dir: artifacts/data_preparation
   data_path: artifacts/data_transformation
+
+model_trainer:
+  root_dir: artifacts/model_trainer
+  data_path: artifacts/data_preparation
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+  model_path: artifacts/model_trainer
