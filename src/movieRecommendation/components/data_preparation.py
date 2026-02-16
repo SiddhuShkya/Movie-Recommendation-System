@@ -89,6 +89,8 @@ class DataPreparation:
 
         logger.info("Text preprocessing pipeline completed")
 
+        df_cleaned.drop(columns=["concat_description"], inplace=True)
+        logger.info("Removed the concat_description column")
         # Log sample of cleaned text
         if len(df_cleaned) > 0:
             sample_original = df["concat_description"].iloc[0][:100]

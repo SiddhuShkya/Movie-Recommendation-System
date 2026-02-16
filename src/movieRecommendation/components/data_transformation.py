@@ -20,6 +20,12 @@ class DataTransformation:
             "runtime",
             "budget",
             "poster_path",
+            "movieId",
+            "imdbId",
+            "tmdb_id",
+            "imdb_id",
+            "adult",
+            "tmdbId",
         ]
 
     def drop_columns(self, df):
@@ -45,9 +51,10 @@ class DataTransformation:
 
     def concat_features(self, df):
         logger.info("Starting feature concatenation")
-        df["concat_description"] = None
         df["concat_description"] = (
             df["overview"].astype(str)
+            + " "
+            + df["keywords"].astype(str)
             + " "
             + df["genres"].astype(str)
             + " "
@@ -56,10 +63,24 @@ class DataTransformation:
             + df["original_language"].astype(str)
             + " "
         )
+        df.drop(
+            columns=[
+                "overview",
+                "production_companies",
+                "original_language",
+                "keywords",
+            ],
+            inplace=True,
+        )
         logger.info(
             "Feature concatenation completed - created 'concat_description' column"
         )
         return df
+
+    def weight_description(self, row, genre_weight=3):
+        genres_list = [g.strip() for g in row["genres"].split(",")]
+        genres_weighted = " ".join(genres_list * genre_weight)
+        return row["concat_description"] + " " + genres_weighted
 
     def transform(self):
         csv_path = os.path.join(self.config.data_path, "final.csv")
@@ -86,7 +107,9 @@ class DataTransformation:
 
         # Concatenate features
         df = self.concat_features(df)
-
+        # Weight the description using the genres colum
+        df["concat_description"] = df.apply(self.weight_description, axis=1)
+        df.drop(columns=["genres"], inplace=True)
         # Save transformed data
         output_path = os.path.join(self.config.root_dir, "transformed.csv")
         df.to_csv(output_path, index=False)
