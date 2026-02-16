@@ -12,3 +12,5 @@ nltk
 scikit-learn
 langchain-huggingface
 sentence-transformers
+uvicorn
+fastapi
