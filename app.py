@@ -4,7 +4,6 @@ from fastapi import FastAPI
 import pickle
 import pandas as pd
 from starlette.responses import RedirectResponse, JSONResponse
-from fastapi import Response
 from sklearn.metrics.pairwise import cosine_similarity
 
 app = FastAPI()
