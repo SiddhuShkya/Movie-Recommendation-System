@@ -2,8 +2,8 @@ import pytest
 import pandas as pd
 import os
 from unittest.mock import MagicMock
-from movieRecommendation.components.data_transformation import DataTransformation
-from movieRecommendation.components.data_preparation import DataPreparation
+from src.movieRecommendation.components.data_transformation import DataTransformation
+from src.movieRecommendation.components.data_preparation import DataPreparation
 
 @pytest.fixture
 def sample_raw_data():
