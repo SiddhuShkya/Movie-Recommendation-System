@@ -1,6 +1,8 @@
 import pytest
 import pandas as pd
 import os
+import pickle
+import numpy as np
 from unittest.mock import MagicMock
 from src.movieRecommendation.components.data_transformation import DataTransformation
 from src.movieRecommendation.components.data_preparation import DataPreparation
@@ -98,6 +100,38 @@ def test_weight_description_logic():
     
     weighted = transformer.weight_description(row)
     # The current implementation joins the list of genres multiplied by weight
-    # ['Action', 'Comedy'] * 3 = ['Action', 'Comedy', 'Action', 'Comedy', 'Action', 'Comedy']
     assert "Action Comedy Action Comedy Action Comedy" in weighted
     assert "A great movie." in weighted
+
+def test_model_trainer_logic(tmp_path):
+    from src.movieRecommendation.components.model_trainer import ModelTrainer
+    
+    # Mock config
+    config = MagicMock()
+    config.model_name = "dummy-model"
+    config.data_path = str(tmp_path)
+    config.root_dir = str(tmp_path)
+    
+    # Prepare dummy data
+    df = pd.DataFrame({"cleaned_description": ["test one", "test two"]})
+    df.to_csv(tmp_path / "prepared.csv", index=False)
+    
+    # Mock the embedding model
+    with MagicMock() as mock_hf:
+        mock_embedding_instance = MagicMock()
+        mock_embedding_instance.embed_documents.return_value = [[0.1, 0.2], [0.3, 0.4]]
+        
+        trainer = ModelTrainer(config)
+        # Patch load_hf_embedding to return our mock instance
+        trainer.load_hf_embedding = MagicMock(return_value=mock_embedding_instance)
+        
+        trainer.train()
+        
+        # Verify pkl was created
+        pkl_path = tmp_path / "movie_embeddings.pkl"
+        assert pkl_path.exists()
+        
+        with open(pkl_path, "rb") as f:
+            emb = pickle.load(f)
+            assert emb.shape == (2, 2)
+            assert np.array_equal(emb, np.array([[0.1, 0.2], [0.3, 0.4]]))
