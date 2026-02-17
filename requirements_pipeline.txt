@@ -1,0 +1,14 @@
+ipykernel
+ipywidgets
+pandas
+ensure
+python-box
+gdown
+matplotlib
+seaborn
+matplotlib-venn
+pycountry
+nltk
+scikit-learn
+langchain-huggingface
+sentence-transformers
