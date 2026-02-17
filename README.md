@@ -4,6 +4,8 @@ CineMatch is a full-stack movie recommendation platform that leverages state-of-
 
 ![CineMatch UI](screenshots/webapp.png)
 
+---
+
 ## ✨ Key Features
 
 - **🧠 Intelligent AI Recommendations**: Uses HuggingFace `all-MiniLM-L6-v2` sentence transformers to compute high-dimensional embeddings for over 13,000 movies.
@@ -11,12 +13,37 @@ CineMatch is a full-stack movie recommendation platform that leverages state-of-
 - **🖼️ Poster Integration**: Automatic merging of TMDb poster data for a rich, visual browsing experience.
 - **🔄 Synced Research Pipeline**: Perfect alignment between Jupyter research notebooks and the production API, ensuring consistent results across all environments.
 
+---
+
 ## 🛠️ Technology Stack
 
 - **Backend**: FastAPI, Python, Pandas, Scikit-learn
 - **AI/ML**: HuggingFace Transformers (Sentence-Transformers), NLTK
 - **Frontend**: HTML5, Vanilla CSS3 (Glassmorphism), JavaScript (ES6+)
 - **Templates**: Jinja2
+
+---
+
+## 📂 Project Structure
+
+```bash
+.
+├── 📂 artifacts/           # Data & model artifacts generated per stage
+├── 📂 config/              # YAML configuration for pipeline settings
+├── 📂 research/            # Jupyter notebooks for model experimentation
+├── 📂 screenshots/         # Web application UI previews
+├── 📂 src/                 # Production Python source code
+│   └── 📂 movieRecommendation/ # Modular application logic
+├── 📂 templates/           # Frontend assets (HTML, CSS, JS)
+├── 🐍 app.py               # FastAPI web server entry point
+├── 🐍 main.py              # Data pipeline execution entry point
+├── 🐳 Dockerfile           # Web app container configuration
+├── 🐳 docker-compose.yaml  # Docker Compose orchestration
+├── 📄 requirements_app.txt # Lightweight app-only dependencies
+└── 📄 requirements_pipeline.txt # Heavy pipeline & research dependencies
+```
+
+---
 
 ## 🚀 Getting Started
 
@@ -52,14 +79,7 @@ python app.py
 ```
 Visit `http://localhost:8000` in your browser.
 
-## 📂 Project Structure
-
-- `src/`: Core logic and data pipeline components.
-- `research/`: Jupyter notebooks for data exploration and model evaluation.
-- `templates/`: Frontend assets (HTML, CSS, JS).
-- `artifacts/`: Generated models, cleaned data, and ingested datasets.
-- `main.py`: Entry point for the data pipeline.
-- `app.py`: FastAPI server for the web interface.
+---
 
 ## 🐳 Docker Support (Web App Only)
 
@@ -79,4 +99,8 @@ docker build -t cinematch .
 docker run -p 8000:8000 cinematch
 ```
 
+---
+
 ## 🛡️ License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
