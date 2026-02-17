@@ -15,6 +15,24 @@ def sample_raw_data():
         "genres": ["Action, Comedy", "Drama"],
         "production_companies": ["Comp 1", "Comp 2"],
         "keywords": ["key1, key2", "key3"],
+        "positive_users": [0, 0],
+        "positive_count": [0, 0],
+        "negative_users": [0, 0],
+        "negative_count": [0, 0],
+        "vote_average": [0.0, 0.0],
+        "vote_count": [0, 0],
+        "status": ["Released", "Released"],
+        "release_date": ["2021-01-01", "2021-01-01"],
+        "revenue": [0, 0],
+        "runtime": [120, 120],
+        "budget": [0, 0],
+        "poster_path": ["/path1", "/path2"],
+        "movieId": [1, 2],
+        "imdbId": [1, 2],
+        "tmdb_id": [1, 2],
+        "imdb_id": ["tt1", "tt2"],
+        "adult": [False, False],
+        "tmdbId": [1, 2],
         "extra_col": ["val1", "val2"]
     })
 
@@ -70,7 +88,7 @@ def test_data_preparation_cleaning():
 
 def test_weight_description_logic():
     # Helper to test the logic we synced
-    from movieRecommendation.components.data_transformation import DataTransformation
+    from src.movieRecommendation.components.data_transformation import DataTransformation
     config = MagicMock()
     transformer = DataTransformation(config)
     
