@@ -27,8 +27,17 @@ cd Movie-Recommendation-System
 ```
 
 ### 2. Install Dependencies
+
+Depending on whether you want to train the model or just run the app, choose the appropriate file:
+
+**For Model Training & Research (Heavy):**
 ```bash
-pip install -r requirements.txt
+pip install -r requirements_pipeline.txt
+```
+
+**For Running the Web App (Lightweight):**
+```bash
+pip install -r requirements_app.txt
 ```
 
 ### 3. Initialize & Train the Model
@@ -52,6 +61,22 @@ Visit `http://localhost:8000` in your browser.
 - `main.py`: Entry point for the data pipeline.
 - `app.py`: FastAPI server for the web interface.
 
-## 🛡️ License
+## 🐳 Docker Support (Web App Only)
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Run the CineMatch web application in a lightweight container using Docker:
+
+### Using Docker Compose (Recommended)
+```bash
+docker-compose up --build
+```
+
+### Using Docker CLI
+```bash
+# Build the image
+docker build -t cinematch .
+
+# Run the container
+docker run -p 8000:8000 cinematch
+```
+
+## 🛡️ License
