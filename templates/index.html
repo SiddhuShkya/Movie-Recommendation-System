@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMatch | AI Movie Recommendations</title>
+    <link rel="stylesheet" href="/templates/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <header class="sidebar-header">
+                <h1>CineMatch</h1>
+                <p class="subtitle">AI Movie Recommendations</p>
+            </header>
+
+            <div class="search-container">
+                <input type="text" id="movieInput" placeholder="Search movies..." autocomplete="off">
+            </div>
+
+            <div class="movie-list-container">
+                <div id="movieList" class="movie-sidebar-list">
+                    <!-- Movie list items injected here -->
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button id="trainBtn" class="train-btn">
+                    <i class="fas fa-sync-alt"></i> Train Model
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div id="loader" class="loader">
+                <div class="spinner"></div>
+            </div>
+
+            <div id="welcomeScreen" class="welcome-screen">
+                <i class="fas fa-film welcome-icon"></i>
+                <h2>Welcome to CineMatch</h2>
+                <p>Select a movie from the sidebar to get AI-powered recommendations</p>
+            </div>
+            <div id="resultsContent" style="display: none;">
+                <h2 class="results-heading">Recommended Movies</h2>
+                <section id="results" class="results-section">
+                    <!-- Movie cards will be injected here -->
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="/templates/script.js"></script>
+</body>
+
+</html>
