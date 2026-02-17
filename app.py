@@ -33,18 +33,14 @@ def load_data():
         if os.path.exists(MOVIE_DATA_PATH) and os.path.exists(SAVED_EMBEDDING_PATH):
             df = pd.read_csv(MOVIE_DATA_PATH)
             
-            # Merge poster_path from ingestion data
+            # Add poster_path from ingestion data safely
             if os.path.exists(INGESTION_DATA_PATH):
                 ingestion_df = pd.read_csv(INGESTION_DATA_PATH)
                 if "poster_path" in ingestion_df.columns:
-                    # Drop existing poster_path if any, then merge
-                    if "poster_path" in df.columns:
-                        df = df.drop(columns=["poster_path"])
-                    
-                    # Merge based on movie ID or title (using title as fallback if id mismatch)
-                    # Checking content of final.csv earlier showed it has 'id' and 'title'
-                    df = pd.merge(df, ingestion_df[['title', 'poster_path']], on='title', how='left')
-                    print("✓ Poster data merged successfully")
+                    # Use a mapping to ensure row order and count stay identical to embeddings
+                    poster_map = ingestion_df.drop_duplicates('title').set_index('title')['poster_path']
+                    df['poster_path'] = df['title'].map(poster_map)
+                    print("✓ Poster data mapped successfully (alignment preserved)")
             
             with open(SAVED_EMBEDDING_PATH, "rb") as f:
                 movie_embedding = pickle.load(f)
@@ -66,12 +62,16 @@ load_data()
 def content_based_recommend(movie_title, df, embeddings, N=12):
     """Generate content-based recommendations"""
     try:
-        # Case insensitive search
-        matching_movies = df[df["title"].str.lower() == movie_title.lower()]
-        if matching_movies.empty:
-            return None, f"Movie '{movie_title}' not found in database"
-
-        idx = matching_movies.index[0]
+        # Search for movie index
+        # 1. Try strict match first (exactly like the research notebook)
+        if movie_title in df["title"].values:
+            idx = df[df["title"] == movie_title].index[0]
+        else:
+            # 2. Fallback to case-insensitive search if strict match fails
+            matching_movies = df[df["title"].str.lower() == movie_title.lower()]
+            if matching_movies.empty:
+                return None, f"Movie '{movie_title}' not found in database"
+            idx = matching_movies.index[0]
         movie_vec = embeddings[idx].reshape(1, -1)
         sims = cosine_similarity(movie_vec, embeddings).flatten()
         top_indices = sims.argsort()[::-1][1 : N + 1]
